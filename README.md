@@ -9,3 +9,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 with TamperMonkey inside FireFox browser
 https://www.tampermonkey.net/
+
+and DBeaver Universal Database Tool
+https://dbeaver.io/
+
+running on KDE Neon
+https://neon.kde.org/
