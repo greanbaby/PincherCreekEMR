@@ -1,0 +1,270 @@
+// ==UserScript==
+// @name         RBTSummaryWithGraph
+// @namespace    http://sgin.info/
+// @version      v5
+// @description  Adds colour to rows and add Graph button underneath. v5 is all changes since 2021v4 was committed April 15. https://youtu.be/GEkY4rQ-jMU
+// @author       Scott Gingras <sgingras@pinchermedical.ca>
+// @match        */*/*/reportByTemplate/GenerateReportAction.do
+// @icon         https://www.google.com/s2/favicons?domain=sgin.info
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    const sqlColumnName = 'panel', // change this to match column name from sql to summarize and graph
+          dataTable = document.getElementsByTagName('table')[2], // all query results are inside this dataTable
+          dataTableSize = dataTable.rows.length, // save this so it does not need to be re-calculated in loops
+          theGreenGrass = `color: green;
+                 border: 2px solid green;
+                 margin: 2px;
+                 padding: 2px;`,
+          strBarChartLineColour = 'aqua';
+    let allowExecution = true; // controls whether the code is prevented from running on the page a second time
+    changePage(); // colour alternate table rows in query results then insert a button into the user and go look
+    function changePage() {
+        /*  -----------------------------------------------------------------------------------------------------
+            changePage() - Scott Gingras <sgingras@pinchermedical.ca> - April 11, 2021
+            -----------------------------------------------------------------------------------------------------
+            - 1) browser console startup info
+            - 2) alternate rows coloured
+            - 3) Graph button inserted
+            - 4) Go look at what we've done
+            */
+        fncLogStartupInfo(); // we used to type out a lot of things to the user that nobody bothered to read using F12 so we cut back
+        fncColourAlternateDataTableRows(); // alternating row colours
+        fncInsertGraphButton(); // insert and then immediately go look
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+    function fncInsertGraphButton() {
+        dataTable.parentNode.appendChild(document.createTextNode((dataTableSize-1) + " data rows found in " +
+                                                 document.getElementsByClassName('reportTitle')[0].innerText));
+        dataTable.parentNode.appendChild(document.createElement("br"));
+        dataTable.parentNode.appendChild(document.createElement("br"));
+        let scottsButton = document.createElement('input'); // generate button
+        formatScottsButton(scottsButton); // add sqlColumnName to button text
+        dataTable.parentNode.appendChild(scottsButton); // insert button
+        const linebreak = document.createElement("hr");
+        dataTable.parentNode.appendChild(linebreak);
+    }
+    function formatScottsButton(scottsButton) {
+        scottsButton.setAttribute('type',"button");
+        scottsButton.setAttribute('value',"Graph " + sqlColumnName);
+        scottsButton.setAttribute('class',"ControlPushButton");
+        scottsButton.onclick = scottyG;
+    }
+    function fncLogStartupInfo() {
+        console.log(new Date);
+        console.info('%cProcessing ' + (dataTable.rows.length-1) +
+                     ' dataTable rows in the query results using column: ' + sqlColumnName, theGreenGrass);
+    }
+    function fncColourAlternateDataTableRows() {
+        for (let x = 1;x<dataTableSize;x=x+2) {
+            dataTable.rows[x].style.backgroundColor = '#e0e0ff';
+        }
+    }
+    function scottyG() {
+        /*  -----------------------------------------------------------------------------------------------------
+            scottyG() - ScottyG <sgingras@pinchermedical.ca> - April 12, 2021
+            -----------------------------------------------------------------------------------------------------
+                    The G stands for "Graph"
+
+            This scottyG function is called by scottsButton which is inserted under the dataTable
+            in the web page with all query results displayed inside that dataTable.
+            It figures out which column has something useful to graph based on strColumnName
+            and then inserts a simple bar graph into the page using without depending on other scripts.
+
+            We do this with a button rather than just executing automatically on page load for 2 reasons:
+            1) just in case something goes wrong with this graph generation it won't interfere with the rest
+                of the code launched on page load that colours the alternate rows of the data results or whatever
+            2) if somebody just wants to use the RBT query data to copy/paste into LibreOffice Calc then
+                they don't need this code operation running and adding unnecessary objects onto their page
+
+            */
+        if (allowExecution) {
+        const intColumnToAnalyzeAndGraph = fncGetDataTableColumnByName(sqlColumnName); // convert sqlColumnName to integer
+            if (intColumnToAnalyzeAndGraph > -1) {
+                console.info('%cInitiating scottyTableHeaderAndGraphInsertion', theGreenGrass);
+                /*
+                *  this step is critical and any weird errors are probably because of the
+                *  fncGetSummaryData function trying to get this associative array arrG...
+                */
+                const arrG = fncGetSummaryData(intColumnToAnalyzeAndGraph);
+                // we made it this far so sqlColumnName must really have existed for the user
+                // they followed instructions correctly and changed this TamperMonkey script
+                // so that the global variable sqlColumnName worked and matched their SQL column results name!
+                // any reports that "THE BUTTON DOESN'T WORK WHEN I PUSH IT" probably 90% chance means that
+                // there will be a message in the browser console saying something about
+                // 'FATAL ERROR - CANNOT FIND panel - CHECK sqlColumnName VARIABLE TO MATCH SQL QUERY'
+                // but that is all that the code does is display that message in the console, so to the
+                // uninitiated they just think things are broken and the programmer is stupid because 'the button does nothing'
+                // anyways...insert the summary and graph now that we know this RBTSummaryWithGraph.user.js file was done right
+                scottySummaryAndGraphInsertion(arrG);
+                // if we get here we know it was properly inserted into the user so go look
+                window.scrollTo(0,document.body.scrollHeight);
+                allowExecution = false; // only allow code to run once per page load
+            } else {
+                console.error('FATAL ERROR - CANNOT FIND ' + sqlColumnName + ' - CHECK sqlColumnName VARIABLE TO MATCH SQL QUERY');
+            }
+        }
+    }
+    function scottySummaryAndGraphInsertion(arrG) {
+        // 1) insert scotty table header with summary of what graph displays
+        const table = scottyTableHeader(arrG);
+        dataTable.parentNode.appendChild(table);
+        // 2) insert graph below
+        const graph = scottyGraph(arrG);
+        dataTable.parentNode.appendChild(graph);
+    }
+    function scottyTableHeader(arrG) {
+        /*  -----------------------------------------------------------------------------------------------------
+            scottyTableHeader(arrG) - ScottyG <sgingras@pinchermedical.ca> - April 13, 2021
+            -----------------------------------------------------------------------------------------------------
+                arrG is an associative array with the cell innerHTML as the keys and the occurrance counts as the values
+                e.g.​ Array []
+                    ​"Gelber, T": 5
+                    ​"Gingras, S": 15
+                    ​"oscardo, d": 964
+
+            Using this associative array, generate an HTML table out of thin air
+            */
+        const gtable = document.createElement("table"), // generate new table as return value of function
+            caption = document.createElement("caption"),
+            captiontext = document.createTextNode("Count number of occurrances of " + sqlColumnName + " in " +
+                                                 document.getElementsByClassName('reportTitle')[0].innerText);
+        caption.appendChild(captiontext);
+        gtable.appendChild(caption);
+        // append 2 rows to the table
+        const hrow = document.createElement("tr"),
+            drow = document.createElement("tr");
+        gtable.appendChild(hrow);
+        gtable.appendChild(drow);
+        /*  -----loop thru arrG generating cells using the keys and values-----
+                create headings and cells and append them to these table rows
+                <TH> headings (arrG.keys) are all appended to hrow
+                <TD> cells (arrG.values) are all appended to drow
+            */
+        let th,thtext,td,tdtext;
+        for (const [key, value] of Object.entries(arrG)) {
+            // key as the table header th
+            th = document.createElement("th");
+            thtext = document.createTextNode(`${key}`);
+            th.appendChild(thtext);
+            hrow.appendChild(th); // insert key as header
+            // value as the table cell td
+            td = document.createElement("td");
+            tdtext = document.createTextNode(`${value}`);
+            td.appendChild(tdtext);
+            td.style = 'text-align: center';
+            drow.appendChild(td); // insert value as cell text
+        }
+        return gtable; // return the table completely ready to insert into the user
+    }
+    function fncGetDataTableColumnByName(sqlColumnName) {
+        const intColumns = dataTable.rows[0].cells.length;
+        let intColumnWithName = -1; // default to -1 so it is obvious if nothing is found
+        // loop through columns but break as soon as we find sqlColumnName
+        for (let x = 0;x<intColumns;x++) {
+            if (dataTable.rows[0].cells[x].innerHTML === sqlColumnName) {
+                intColumnWithName = x;
+                break;
+            }
+        }
+        return intColumnWithName;
+    }
+    function fncGetSummaryData(intColumn) {
+        /*  -----------------------------------------------------------------------------------------------------
+            fncGetSummaryData(intColumn) - ScottyG <sgingras@pinchermedical.ca> - April 13, 2021
+            -----------------------------------------------------------------------------------------------------
+                    intColumn specifies which column of sql data results to summarize into an associative array
+
+            This function will create an associative array which counts the number of times each value appears.
+
+            The return result is an associative array with the counts found by looping through the dataTable
+            An example of the associative array returned by this function looks like:
+            e.g.    ​ Array []
+                    ​"Gelber, T": 5
+                    ​"Gingras, S": 15
+                    ​"oscardo, d": 964
+
+            */
+        let setScotty = new Set(),
+            arrRes = [], // return associative array with unique name keys based on the Set
+            arrAll = []; // all values found in intColumn of the dataTable
+        // start at 1 because we don't care about the header row at all
+        for (let x = 1;x<dataTableSize;x++) {
+            const scottyVal = dataTable.rows[x].cells[intColumn].innerHTML; // read cell value
+            setScotty.add(scottyVal); // does nothing if value already exists
+            arrAll.push(scottyVal); // add everything into arrAll
+        }
+        for (let scotty of setScotty) {
+            arrRes[scotty] = 0; // we now know that this associative array arrRes contains unique values only so that is joyful
+        }
+        for (let scotts of arrAll) {
+            arrRes[scotts] = arrRes[scotts] + 1; // very simply count all HTML cell values now
+        }
+        return arrRes;
+    }
+    function scottyGraph(arrG) {
+        /*  -----------------------------------------------------------------------------------------------------
+            scottyGraph(arrG) - ScottyG <sgingras@pinchermedical.ca> - April 14, 2021
+            -----------------------------------------------------------------------------------------------------
+                arrG is an associative array with the cell innerHTML as the keys and the occurrance counts as the values
+                e.g.​ Array []
+                    ​"Gelber, T": 5
+                    ​"Gingras, S": 15
+                    ​"oscardo, d": 964
+
+            Using this associative array, generate an HTML table turned bar graph which is the return value of this function
+
+            */
+        const graphTable = document.createElement("table"),
+              hrow = graphTable.insertRow(); // header row
+        graphTable.createCaption().textContent = (dataTableSize-1) + ' ' + sqlColumnName + ' occurrances in ' +
+            document.getElementsByClassName('reportTitle')[0].innerText;
+        graphTable.style.border = "thin dotted grey";
+        hrow.insertCell().outerHTML = '<th>' + sqlColumnName + '</th>';
+        hrow.insertCell().outerHTML = '<th>% of total ' +
+           document.getElementsByClassName('reportTitle')[0].innerText + '</th>';
+        drawScottyGraphData();
+        return graphTable;
+        function drawScottyGraphData() {
+            /*  ------------------------------------------------------------------------------------
+                drawScottyGraphData() - ScottyG <sgingras@pinchermedical.ca> - April 14, 2021
+                ------------------------------------------------------------------------------------
+                Use the graphTable to add rows where each row will have the count for the key index
+                displayed as bar graph coloured cell where the size of the coloured bar represents
+                the percentage of the total for each item
+             */
+            let drow; // each row containing key and value where the value becomes the bar graph
+            for (const [key, value] of Object.entries(arrG)) {
+                    drow = graphTable.insertRow();
+                    drow.insertCell().appendChild(document.createTextNode(key));
+                    drawSinglesBarLine(value);
+            }
+            function drawSinglesBarLine(val) {
+                /*  ------------------------------------------------------------------------------------
+                    drawSinglesBarLine(val) - ScottyG <sgingras@pinchermedical.ca> - April 14, 2021
+                    ------------------------------------------------------------------------------------
+                    Use a table with style table-layout:fixed
+                    Control bar line size with percentage of total data rows
+                 */
+                const singlesCell = drow.insertCell(),
+                      proportionality = val/(dataTableSize-1),
+                      strPercent = proportionality.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2}),
+                      tableSinglesBar = document.createElement('table'),
+                      rowSinglesBar = tableSinglesBar.insertRow(),
+                      tdBarLeft = rowSinglesBar.insertCell(),
+                      tdBarRight = rowSinglesBar.insertCell();
+                tableSinglesBar.style = 'table-layout: fixed'; // this table-layout: fixed is worth it's weight in gold
+                tableSinglesBar.setAttribute('width', '100%'); // insert as wide as possible
+                tdBarLeft.innerHTML = strPercent; // label displayed at right side of the line
+                tdBarLeft.style = 'text-align: right'; // if there is not enough space the text spills over it's ok
+                tdBarLeft.style.backgroundColor = strBarChartLineColour; // colour of the lines is controlled at the top
+                tdBarLeft.setAttribute('width', strPercent+'%'); // small sizes are the reason we need minimumFractionDigits:2 to force it big enough
+                tdBarRight.innerHTML = '&nbsp;'; // slip this into the user and hope they don't find out
+                // add singles bar line
+                singlesCell.appendChild(tableSinglesBar);
+            }
+        }
+    }
+})();
