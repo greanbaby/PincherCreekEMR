@@ -1,0 +1,115 @@
+// ==UserScript==
+// @name         PincherCreekEMR
+// @namespace    http://sgin.info/
+// @version      v0.1
+// @description  Adds new functionality for Pincher Creek EMR screens with different elements showing depending on OSCAR screen location
+// @author       Scott Gingras <sgingras@pinchermedical.ca>
+// @match        */oscar/*
+// @icon         https://www.google.com/s2/favicons?domain=sgin.info
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    // ***
+    // *** IMPORTANT NOTE THIS SCRIPT IS VERSION 0.1 AND IS NOT MEANT FOR PRODUCTION USE (YET)
+    // *** LAST UPDATED: SEPT. 26, 2021
+    // *** RIGHT NOW WE ARE TRYING TO DEMONSTRATE HAVING ALL ITEMS A NEW USER NEEDS TO CHANGE
+    // *** APPEARING AT THE VERY TOP SO IT MAKES IT EASIER FOR NEWBIES TO GET STARTED
+    // *** WITH GREASEMONKEY.
+    // *** THIS SCRIPT WAS BUILT WITH TAMPERMONKEY
+    // ***
+    const scottyLocation = fncGetOSCARLocation(), // scottyLocation is built differently depending on your OSCAR installation
+	        urlReport = 'oscarReport/reportByTemplate/reportConfiguration.jsp',
+		      urlZoom = 'https://zoom.us/',
+          colourCommonButtons = 'purple',
+          colourSchedulerButtons = 'navy',
+          templateIDAppts3Yr = 1; // REQUIRED: Configure this for your installation to match your Report By Template structure
+	  // -------------------------------------------------------
+    // ------------ START PINCHER CREEK EMR LOADING ----------
+	  // -------------------------------------------------------
+    // #1 CUSTOM ELEMENTS
+    if (location.pathname.includes('providercontrol')) {
+        fncLoadScheduler(); // elements only appearing on SCHEDULER screen
+    }
+	  / #2 COMMON ELEMENTS
+    fncLoadCommon(); // elements appear on all OSCAR screens
+	  // -------------------------------------------------------
+    // ---------- FINISHED LOADING PINCHER CREEK EMR ---------
+	  // -------------------------------------------------------
+    function fncLoadCommon() {
+		    // -------------------------------------------------------
+        // ------------ COMMON ELEMENTS FOR ALL PAGES ------------
+	      // -------------------------------------------------------
+        // ALL screen additions commonly shared on all screens and always showing
+        // #1 Zoom button
+        const btnZoom = createNewButton('Open Zoom');
+        btnZoom.setAttribute('style', styleRight(colourCommonButtons,0)); // position 0 on page (bottom button)
+        btnZoom.onclick = fncommonZoomWindow;
+        document.body.appendChild(btnZoom);
+        // button onclick FUNCTIONS for COMMON ELEMENTS FOR ALL PAGES
+        function fncommonZoomWindow() {
+            window.open(urlZoom, 'newWindow', '_blank');
+        }
+    }
+    function fncLoadScheduler() {
+		    // -------------------------------------------------------
+        // -------------- SCHEDULER SCREEN ELEMENTS --------------
+	      // -------------------------------------------------------
+        // #1 Appts3Year button
+        const btnRBT = createNewButton('Appts3Year');
+        btnRBT.setAttribute('style', styleRight(colourSchedulerButtons,1)); // position 1 on page (2nd button from bottom)
+        btnRBT.onclick = fnschedulerAppts3Yr;
+        document.body.appendChild(btnRBT);
+        // #2 Test button
+        const btnTest = createNewButton('Test');
+        btnTest.setAttribute('style', styleRight(colourSchedulerButtons,2)); // position 2 on page (3rd button from bottom)
+        btnTest.onclick = () => alert('test');
+        document.body.appendChild(btnTest);
+        // button onclick FUNCTIONS for SCHEDULER SCREEN
+        function fnschedulerAppts3Yr() {
+            window.open(scottyLocation + urlReport + '?templateid=' + templateIDAppts3Yr, 'newWindow', '_blank');
+        }
+        // ---------------- END SCHEDULER SCREEN -----------------
+    }
+        function createNewButton(strName) {
+		    // -------------------------------------------------------
+        // ------------ TEMPLATE FOR NEW HTML BUTTONS ------------
+	      // -------------------------------------------------------
+        let btnNew = document.createElement('input');
+        btnNew.type = 'button';
+        btnNew.value = strName;
+        return btnNew;
+    }
+    function styleRight(strColour, numPosition) {
+		    // -------------------------------------------------------
+        // --------- CSS STYLE FOR RIGHT ALIGNED BUTTONS ---------
+		    // --- strColour is the button colour
+		    // ---
+		    // --- numPosition is the button position from bottom-up
+		    // ---  so 0 indicates the very bottom, 1 means second
+		    // ---  from the bottom, etc.
+	      // -------------------------------------------------------
+        const strBackgroundColour = 'background-color: ' + strColour + ';',
+              numPixAdd = 71 + (51 * numPosition),
+              strBottomRank = 'bottom:' + numPixAdd + 'px;';
+        return `font-size:16px;
+                             border: none;
+                             color: #fff;
+                             padding: 15px 30px;
+                             text-decoration: none;
+                             margin: 4px 2px;
+                             cursor: pointer;
+                             position:fixed;
+                             right:0px;
+                             z-index:100;`
+				+ strBackgroundColour
+				+ strBottomRank;
+    }
+    function fncGetOSCARLocation() {
+        // --------------------------------------------------------
+        // --- GET OSCAR LOCATION FOR YOUR CURRENT INSTALLATION ---
+        // --------------------------------------------------------
+        return 'https://' + location.hostname + ':8443/oscar/';
+    }
+})();
