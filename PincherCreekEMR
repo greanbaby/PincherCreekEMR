@@ -77,7 +77,7 @@
         }
         // ---------------- END SCHEDULER SCREEN -----------------
     }
-        function createNewButton(strName) {
+    function createNewButton(strName) {
         // -------------------------------------------------------
         // ------------ TEMPLATE FOR NEW HTML BUTTONS ------------
 	// -------------------------------------------------------
