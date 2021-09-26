@@ -11,6 +11,9 @@
 
 (function() {
     'use strict';
+    // set up global variables: PHN, Phone
+    const ptPHN = '',
+          ptPhoneNumber = '';
     // load the Master Demographics page using fetch and read the patient demographics
     (async () => {
         const response = await fetch('https://192.168.1.24:8443/' +
