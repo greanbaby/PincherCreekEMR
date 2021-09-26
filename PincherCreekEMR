@@ -12,6 +12,11 @@
 (function() {
     'use strict';
     // ***
+    // *** CREDIT: Dr. Stan Hurwitz 
+    // ***         https://github.com/DrStanMD/Oscar-GM4-scripts
+    // *** THIS SCRIPT WAS INSPIRED BY THE PRESENTATION DR. HURWITZ GAVE AS THE OSCARBC
+    // *** GREASEMONKEY MEETING SATURDAY SEPT. 25, 2021 9:15AM
+    // ***
     // *** IMPORTANT NOTE THIS SCRIPT IS VERSION 0.1 AND IS NOT MEANT FOR PRODUCTION USE (YET)
     // *** LAST UPDATED: SEPT. 26, 2021
     // *** RIGHT NOW WE ARE TRYING TO DEMONSTRATE HAVING ALL ITEMS A NEW USER NEEDS TO CHANGE
