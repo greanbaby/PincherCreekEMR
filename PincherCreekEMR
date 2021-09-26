@@ -56,6 +56,7 @@
         function fncommonZoomWindow() {
             window.open(urlZoom, 'newWindow', '_blank');
         }
+	// ------------- END COMMON ELEMENTS SECTION -------------
     }
     function fncLoadScheduler() {
         // -------------------------------------------------------
@@ -75,7 +76,7 @@
         function fnschedulerAppts3Yr() {
             window.open(scottyLocation + urlReport + '?templateid=' + templateIDAppts3Yr, 'newWindow', '_blank');
         }
-        // ---------------- END SCHEDULER SCREEN -----------------
+        // ------------ END SCHEDULER SCREEN SECTION -------------
     }
     function createNewButton(strName) {
         // -------------------------------------------------------
