@@ -19,28 +19,28 @@
     // *** WITH GREASEMONKEY.
     // *** THIS SCRIPT WAS BUILT WITH TAMPERMONKEY
     // ***
-    const scottyLocation = fncGetOSCARLocation(), // scottyLocation is built differently depending on your OSCAR installation
-	        urlReport = 'oscarReport/reportByTemplate/reportConfiguration.jsp',
-		      urlZoom = 'https://zoom.us/',
+    const scottyLocation = fncGetOSCARLocation(),
+	  urlReport = 'oscarReport/reportByTemplate/reportConfiguration.jsp',
+	  urlZoom = 'https://zoom.us/',
           colourCommonButtons = 'purple',
           colourSchedulerButtons = 'navy',
-          templateIDAppts3Yr = 1; // REQUIRED: Configure this for your installation to match your Report By Template structure
-	  // -------------------------------------------------------
+          templateIDAppts3Yr = 1; // REQUIRED: Configure this templateID for your installation to match your Report By Template structure
+    // -------------------------------------------------------
     // ------------ START PINCHER CREEK EMR LOADING ----------
-	  // -------------------------------------------------------
+    // -------------------------------------------------------
     // #1 CUSTOM ELEMENTS
     if (location.pathname.includes('providercontrol')) {
         fncLoadScheduler(); // elements only appearing on SCHEDULER screen
     }
-	  / #2 COMMON ELEMENTS
+    // #2 COMMON ELEMENTS
     fncLoadCommon(); // elements appear on all OSCAR screens
-	  // -------------------------------------------------------
+    // -------------------------------------------------------
     // ---------- FINISHED LOADING PINCHER CREEK EMR ---------
-	  // -------------------------------------------------------
+    // -------------------------------------------------------
     function fncLoadCommon() {
-		    // -------------------------------------------------------
+        // -------------------------------------------------------
         // ------------ COMMON ELEMENTS FOR ALL PAGES ------------
-	      // -------------------------------------------------------
+	// -------------------------------------------------------
         // ALL screen additions commonly shared on all screens and always showing
         // #1 Zoom button
         const btnZoom = createNewButton('Open Zoom');
@@ -53,9 +53,9 @@
         }
     }
     function fncLoadScheduler() {
-		    // -------------------------------------------------------
+        // -------------------------------------------------------
         // -------------- SCHEDULER SCREEN ELEMENTS --------------
-	      // -------------------------------------------------------
+	// -------------------------------------------------------
         // #1 Appts3Year button
         const btnRBT = createNewButton('Appts3Year');
         btnRBT.setAttribute('style', styleRight(colourSchedulerButtons,1)); // position 1 on page (2nd button from bottom)
@@ -73,23 +73,23 @@
         // ---------------- END SCHEDULER SCREEN -----------------
     }
         function createNewButton(strName) {
-		    // -------------------------------------------------------
+        // -------------------------------------------------------
         // ------------ TEMPLATE FOR NEW HTML BUTTONS ------------
-	      // -------------------------------------------------------
+	// -------------------------------------------------------
         let btnNew = document.createElement('input');
         btnNew.type = 'button';
         btnNew.value = strName;
         return btnNew;
     }
     function styleRight(strColour, numPosition) {
-		    // -------------------------------------------------------
+        // -------------------------------------------------------
         // --------- CSS STYLE FOR RIGHT ALIGNED BUTTONS ---------
-		    // --- strColour is the button colour
-		    // ---
-		    // --- numPosition is the button position from bottom-up
-		    // ---  so 0 indicates the very bottom, 1 means second
-		    // ---  from the bottom, etc.
-	      // -------------------------------------------------------
+	// --- strColour is the button colour
+	// ---
+	// --- numPosition is the button position from bottom-up
+	// ---  so 0 indicates the very bottom, 1 means second
+	// ---  from the bottom, etc.
+	// -------------------------------------------------------
         const strBackgroundColour = 'background-color: ' + strColour + ';',
               numPixAdd = 71 + (51 * numPosition),
               strBottomRank = 'bottom:' + numPixAdd + 'px;';
