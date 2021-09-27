@@ -2,7 +2,7 @@
 // @name         fetchPatientDataIntoeChart
 // @namespace    http://sgin.info
 // @version      0.3
-// @description  fetch demographics inside eChart and other stuff
+// @description  fetch demographics into eChart. change strHostName to match your instance. built either for GreaseMonkey or TamperMonkey
 // @author       Scott Gingras <sgingras@pinchermedical.ca>
 // @include      */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
 // @icon         https://www.google.com/s2/favicons?domain=sgin.info
