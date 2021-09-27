@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         fetchPatientDataIntoeChart
 // @namespace    http://sgin.info
-// @version      0.2
+// @version      0.3
 // @description  fetch demographics inside eChart and other stuff
 // @author       Scott Gingras <sgingras@pinchermedical.ca>
 // @match        */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
@@ -11,11 +11,22 @@
 
 (function() {
     'use strict';
-    // load the Master Demographics page using fetch and read the patient demographics
+    // load the Master Demographics page using fetch and read the patient demographics into the eChart header
+    function currentDemographicNo() {
+        const qry = window.location.search.substring(1),
+              vars = qry.split("&");
+        for (let i=0;i<vars.length;i++) {
+            const pair = vars[i].split("=");
+            if(pair[0] == 'demographicNo'){return pair[1];}
+        }
+        return(false);
+    }
     (async () => {
         const response = await fetch('https://192.168.1.24:8443/' +
-                                   'oscar/demographic/demographiccontrol.jsp?' +
-                                   'demographic_no=2&displaymode=edit&dboperation=search_detail'),
+                                     'oscar/demographic/demographiccontrol.jsp?' +
+                                     'demographic_no=' +
+                                     currentDemographicNo() +
+                                     '&displaymode=edit&dboperation=search_detail'),
               patientDemographicLargeHTMLBLOB = await response.text(),
               ptDemo = fnShrinkDemographic(patientDemographicLargeHTMLBLOB),
               ptPHN = fnParseDataValue(ptDemo, 'Health Ins. #:'),
