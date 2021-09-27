@@ -4,7 +4,7 @@
 // @version      0.3
 // @description  fetch demographics inside eChart and other stuff
 // @author       Scott Gingras <sgingras@pinchermedical.ca>
-// @include        */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
+// @include      */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
 // @icon         https://www.google.com/s2/favicons?domain=sgin.info
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
