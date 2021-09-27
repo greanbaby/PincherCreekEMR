@@ -11,19 +11,19 @@
 
 (function() {
     'use strict';
-    // set up global variables: PHN, Phone
-    const ptPHN = '',
-          ptPhoneNumber = '';
     // load the Master Demographics page using fetch and read the patient demographics
     (async () => {
         const response = await fetch('https://192.168.1.24:8443/' +
                                    'oscar/demographic/demographiccontrol.jsp?' +
                                    'demographic_no=2&displaymode=edit&dboperation=search_detail'),
               patientDemographicLargeHTMLBLOB = await response.text(),
-              ptDemo = fnShrinkDemographic(patientDemographicLargeHTMLBLOB);
+              ptDemo = fnShrinkDemographic(patientDemographicLargeHTMLBLOB),
+              ptPHN = fnParseDataValue(ptDemo, 'Health Ins. #:'),
+              ptCity = fnParseDataValue(ptDemo, 'City:');
+        let header = document.getElementById('encounterHeader');
+        header.innerHTML += ('<br>City:' + ptCity + ' PHN:' + ptPHN);
     })()
     function fnShrinkDemographic(largeText) {
-     // split only the DIV class="demographicSection id="demographic" portion...
         const patientDemographicEnd = largeText.substring(
             largeText.indexOf(
                 `<div class="demographicSection" id="demographic">`
@@ -33,7 +33,24 @@
             0,-(patientDemographicEnd.indexOf(
                 `<div class="demographicSection" id="notes">`
             )));
-        alert(patientDemographicShrunk.slice(0,4800) + '...');
         return patientDemographicShrunk;
+    }
+    function fnParseDataValue(strTextBlob,oscarDataLabel) {
+        let blobEnd = strTextBlob.substring(
+            strTextBlob.indexOf(`<span class="label">` + oscarDataLabel) + 20
+        );
+        blobEnd = blobEnd.substring(
+            blobEnd.indexOf(`<span class="info">`) + 19
+        );
+        let blobShrunk = blobEnd.substring(
+            0,blobEnd.indexOf(`</span>`
+            ));
+        if (blobShrunk.indexOf(`&nbsp;`) > -1) {
+            blobShrunk = blobShrunk.substring(
+                0,blobShrunk.indexOf(`&nbsp;`));
+        }
+        blobShrunk = blobShrunk.trim();
+        alert(blobShrunk);
+        return blobShrunk;
     }
 })();
