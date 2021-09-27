@@ -22,7 +22,8 @@
         return(false);
     }
     (async () => {
-        const response = await fetch('https://192.168.1.24:8443/' +
+        const strHostName = 'https://192.168.1.24:8443/';
+        const response = await fetch(strHostName +
                                      'oscar/demographic/demographiccontrol.jsp?' +
                                      'demographic_no=' +
                                      currentDemographicNo() +
