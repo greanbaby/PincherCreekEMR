@@ -21,7 +21,7 @@
               ptPHN = fnParseDataValue(ptDemo, 'Health Ins. #:'),
               ptCity = fnParseDataValue(ptDemo, 'City:');
         let header = document.getElementById('encounterHeader');
-        header.innerHTML += ('<br>City:' + ptCity + ' PHN:' + ptPHN);
+        header.innerHTML += ('<br>' + ptPHN + '<br>' + ptCity);
     })()
     function fnShrinkDemographic(largeText) {
         const patientDemographicEnd = largeText.substring(
@@ -50,7 +50,7 @@
                 0,blobShrunk.indexOf(`&nbsp;`));
         }
         blobShrunk = blobShrunk.trim();
-        alert(blobShrunk);
-        return blobShrunk;
+        alert(oscarDataLabel + ' ' + blobShrunk);
+        return oscarDataLabel + ' ' + blobShrunk;
     }
 })();
