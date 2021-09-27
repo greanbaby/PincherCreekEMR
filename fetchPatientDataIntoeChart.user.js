@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         fetchPatientDataIntoeChart
 // @namespace    http://sgin.info
-// @version      0.1
+// @version      0.2
 // @description  fetch demographics inside eChart and other stuff
 // @author       Scott Gingras <sgingras@pinchermedical.ca>
 // @match        */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
@@ -42,15 +42,13 @@
         blobEnd = blobEnd.substring(
             blobEnd.indexOf(`<span class="info">`) + 19
         );
-        let blobShrunk = blobEnd.substring(
+        let dataValue = blobEnd.substring(
             0,blobEnd.indexOf(`</span>`
             ));
-        if (blobShrunk.indexOf(`&nbsp;`) > -1) {
-            blobShrunk = blobShrunk.substring(
-                0,blobShrunk.indexOf(`&nbsp;`));
+        if (dataValue.indexOf(`&nbsp;`) > -1) {
+            dataValue = dataValue.substring(
+                0,dataValue.indexOf(`&nbsp;`));
         }
-        blobShrunk = blobShrunk.trim();
-        alert(oscarDataLabel + ' ' + blobShrunk);
-        return oscarDataLabel + ' ' + blobShrunk;
+        return oscarDataLabel + ' ' + dataValue.trim();
     }
 })();
