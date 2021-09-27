@@ -15,3 +15,6 @@ https://dbeaver.io/
 
 running on KDE Neon
 https://neon.kde.org/
+
+please visit Dr. Stan Hurwitz's GitHub to see other examples of GreaseMonkey (rather than what I'm using: TamperMonkey):
+https://github.com/DrStanMD/Oscar-GM4-scripts
