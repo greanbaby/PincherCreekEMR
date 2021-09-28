@@ -4,7 +4,7 @@
 // @version      0.4
 // @description  fetch demographics into eChart. change strHostName to match your instance. built either for GreaseMonkey or TamperMonkey
 // @author       Scott Gingras <sgingras@pinchermedical.ca>
-// @include        */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
+// @include      */oscar/casemgmt/forward.jsp?action=view&demographicNo=*
 // @icon         https://www.google.com/s2/favicons?domain=sgin.info
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
