@@ -39,7 +39,7 @@
         const patientDemographicEnd = largeText.substring(
             largeText.indexOf(
                 `<div class="demographicSection" id="demographic">`
-            )+49
+            ) + 49
         ),
               patientDemographicShrunk = patientDemographicEnd.slice(
             0,-(patientDemographicEnd.indexOf(
