@@ -55,11 +55,11 @@
             blobEnd.indexOf(`<span class="info">`) + 19
         );
         let dataValue = blobEnd.substring(
-            0,blobEnd.indexOf(`</span>`
+            0, blobEnd.indexOf(`</span>`
             ));
         if (dataValue.indexOf(`&nbsp;`) > -1) {
             dataValue = dataValue.substring(
-                0,dataValue.indexOf(`&nbsp;`));
+                0, dataValue.indexOf(`&nbsp;`));
         }
         return oscarDataLabel + ' ' + dataValue.trim();
     }
