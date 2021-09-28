@@ -42,7 +42,7 @@
             ) + 49
         ),
               patientDemographicShrunk = patientDemographicEnd.slice(
-            0,-(patientDemographicEnd.indexOf(
+            0, -(patientDemographicEnd.indexOf(
                 `<div class="demographicSection" id="notes">`
             )));
         return patientDemographicShrunk;
