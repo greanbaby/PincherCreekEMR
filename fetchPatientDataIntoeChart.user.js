@@ -47,7 +47,7 @@
             )));
         return patientDemographicShrunk;
     }
-    function fnParseDataValue(strTextBlob,oscarDataLabel) {
+    function fnParseDataValue(strTextBlob, oscarDataLabel) {
         let blobEnd = strTextBlob.substring(
             strTextBlob.indexOf(`<span class="label">` + oscarDataLabel) + 20
         );
