@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
+        <link rel="stylesheet" href="${oscar_image_path}w3.css">  
+        <title>OSCAR EMR</title>
+        <meta name="author" content="Scott Gingras">
+        <meta name="description" content="OSCAR EMR January 2022">
+        <script>
+		    function popupPage(varpage, windowname) {
+				const page = "" + varpage,
+				windowprops = "height=800,width=950,location=no,scrollbars=yes,menubars=no,status=yes,toolbars=no,resizable=yes,top=10,left=200",
+				popup = window.open(page, windowname, windowprops);
+				if (popup != null) {
+					if (popup.opener == null) {
+						popup.opener = self;
+					}
+				popup.focus();
+				}
+			}
+			function popupOscarRx(vheight,vwidth,varpage) { 
+				const page = varpage,
+				windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
+				popup=window.open(varpage, "oscarConsultationRequest", windowprops);
+			}
+                    function popupFocusPage(vheight,vwidth,varpage,strTitle) { 
+				const page = varpage,
+				windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
+				popup=window.open(varpage, strTitle, windowprops);
+			}
+		</script>
+        <style type="text/css">
+        TD.lilac {font-weight: normal; color: #000000; background-color: #EEEEFF  ;  padding-top: 4px;padding-bottom: 4px;}
+        TD.lilacRed {font-weight: normal; color: red; background-color: #EEEEFF  ;  padding-top: 4px;padding-bottom: 4px;}
+        TD.white {font-weight: normal; color: #000000; background-color: #FFFFFF;  padding-top: 4px;padding-bottom: 4px;}
+        TD.whiteRed {font-weight: normal; color: red; background-color: #FFFFFF;  padding-top: 4px;padding-bottom: 4px;}
+        div.leftBox {
+            width: 90%;
+            margin-top: 2px;
+            margin-left: 3px;
+            margin-right: 3px;
+            float: left;
+        }
+        div.leftBox h3 {
+            background-color: #ccccff;
+            font-size: 8pt;
+            font-variant: small-caps;
+            font: bold;
+            margin-top: 0px;
+            padding-top: 0px;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+        div.leftBox ul { 
+            font-size: 1.0em;
+            list-style: none;
+            list-style-type: none;
+            list-style-position: outside;
+            padding-left: 1px;
+            margin-left: 1px;
+            margin-top: 0px;
+            padding-top: 1px;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+        div.leftBox li {
+            padding-right: 15px;
+            white-space: nowrap;
+        }
+        div.headPrevention {
+            position: relative;
+            float: left;
+            width: 8.4em;
+            height: 2.5em;
+        }
+        div.headPrevention p {
+            background: #EEF;
+            margin: 0;
+            padding: 4px 5px;
+            line-height: 1.3;
+            text-align: justify height : 2em;
+            font-family: sans-serif;
+            border-left: 0px;
+        }
+        div.headPrevention a {
+            text-decoration: none;
+        }
+        div.headPrevention a:active {
+            color: blue;
+        }
+        div.headPrevention a:hover {
+            color: blue;
+        }
+        div.headPrevention a:link {
+            color: blue;
+        }
+        div.headPrevention a:visited {
+            color: blue;
+        }
+        div.preventionProcedure {
+            width: 10em;
+            float: left;
+            margin-left: 3px;
+            margin-bottom: 3px;
+        }
+        div.preventionProcedure p {
+            font-size: 0.8em;
+            background: #F0F0E7;
+            margin: 0;
+            padding: 1px 2px;
+        }
+        div.preventionSection {
+            width: 100%;
+            postion: relative;
+            margin-top: 5px;
+            float: left;
+            clear: left;
+        }
+        div.preventionSet {
+            border: thin solid grey;
+            clear: left;
+        }
+        div.recommendations {
+            font-size: 1.2em;
+        }
+        div.recommendations ul {
+            padding-left: 15px;
+            margin-left: 1px;
+            margin-top: 0px;
+            padding-top: 1px;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+        table.legend {
+            border:0;
+            padding-top:10px;
+            width:420px;
+        }
+        table.legend td {
+            font-size:10;
+            text-align:left;
+        }
+        table.colour_codes {
+            width:8px;
+            height:10px;
+            border:1px solid #999999;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="w3-row">
+            <div class="w3-half w3-container"><img src="${oscar_image_path}oscar.jpg" width=300 height=100></div>
+            <div class="w3-half w3-container">
+                <h4>OSCAR EMR</h4>
+                <button class="w3-button w3-blue" id="btnOpenLabs">Labs</button>
+                <button class="w3-button w3-blue" id="btnAllergies">Allergies</button>
+                <button class="w3-button w3-blue" id="btnRx">Rx</button>
+                <button class="w3-button w3-blue" id="btnIntake">In</button>
+                <button class="w3-button w3-red" id="btnCloseWindow">Close</button>
+            </div>
+        </div>
+        <div class="w3-panel w3-yellow" id="demographicsFromChartWarning">			
+			<p>This form is meant to be opened from within a patient chart in order to load the necessary patient data field values</p>
+        </div>
+        <form class="w3-container" id="hiddenFieldsForm">
+            <!-- Demographics Name Display -->
+            <div class="w3-panel w3-blue" id="demographicsNameDisplay">
+                <input type="text" readonly id="demographicsNameDisplayFName" oscarDB="patient_nameF"/>
+                <input type="text" readonly id="demographicsNameDisplayLName" oscarDB="patient_nameL"/>
+                <input type="text" size="2" readonly id="demographicsNameDisplayAge" oscarDB="age"/>
+                <input type="text" size="1" readonly id="demographicsNameDisplaySex" oscarDB="sex"/>
+                <label for="demoDisplayHIN">HIN:</label>
+                <input type="text" size="12" readonly id="demoDisplayHIN" oscarDB="hin"/>
+                <label for="demoDisplayAddress">City:</label>
+                <input type="text" readonly id="demoDisplayAddress" oscarDB="city"/>
+                <label for="demoDisplayMRP">MRP:</label>
+                <input type="text" readonly id="demoDisplayMRP" oscarDB="doctor"/>
+            </div>
+            <!-- E Chart Items -->
+             <div class="w3-panel w3-small" id="demodivEChartNote">
+                <div class=w3-row-padding id="dataEChartNote">
+                <label for="demoEChartNote">Latest eChart Note:</label>
+                <input type="textarea" size="1" readonly id="demoEChartNote" oscarDB="latest_echart_note"><hr></div>
+                <div class=w3-row-padding id="dataDxRegistry">
+                <label for="demoDxRegistry">Disease Registry:</label>
+                <input type="textarea" size="1" readonly id="demoDxRegistry" oscarDB="dxregistry"/><hr></div>
+                <div class=w3-row-padding id="dataDrugList">
+                <label for="demoDrugList">Drug List:</label>
+                <input type="textarea" size="1" readonly id="demoDrugList" oscarDB="druglist_line"/><hr></div>
+                <div class=w3-row-padding id="dataOngoingConcerns">
+                <label for="demoOngoingConcerns">Ongoing Concerns:</label>
+                <input type="textarea" size="1" readonly id="demoOngoingConcerns" oscarDB="ongoingconcerns"/><hr></div>
+                <div class=w3-row-padding id="dataAllergies">
+                <label for="demoAllergies">Allergies:</label>
+                <input type="textarea" size="1" readonly id="demoAllergies" oscarDB="allergies_des_no_archived"/><hr></div>
+                <div class=w3-row-padding id="dataMedicalHistory">
+                <label for="demoMedicalHistory">Medical History:</label>
+                <input type="textarea" size="1" readonly id="demoMedicalHistory" oscarDB="medical_history"/><hr></div>
+                <div class=w3-row-padding id="dataSocialFamilyHistory">
+                <label for="demoSocialFamilyHistory">Social Family History:</label>
+                <input type="textarea" size="1" readonly id="demoSocialFamilyHistory" oscarDB="social_family_history"/><hr></div>
+                <div class=w3-row-padding id="dataReminders">
+
+            </div>
+            <div id="hiddenFields">
+                <!-- This is how the information is loaded for the patient we are looking at, OSCAR has functionality to lookup from the database
+                        using input fields that are hidden and with a special "oscarDB" code in the HTML that is translated when the page loads 
+                        automagically the "value" for each of these input fields will be entered from the field mapped in the EMR database--
+                        and then with JavaScript we can grab all of these and use them as we see fit. -->
+                <input type="hidden" id="druglist_generic" oscarDB="druglist_generic"/>
+                <input type="hidden" id="demographic_no" oscarDB="patient_id"/>               
+                <input type="hidden" id="patient_nameF" oscarDB="patient_nameF"/>
+                <input type="hidden" id="patient_nameL" oscarDB="patient_nameL"/>
+                <input type="hidden" id="dob" oscarDB="dob"/>
+                <input type="hidden" id="addressline" oscarDB="addressline"/>
+                <input type="hidden" id="phone" oscarDB="phone"/>
+                <input type="hidden" id="phone2" oscarDB="phone2"/>
+                <input type="hidden" id="cell" oscarDB="cell"/>
+                <input type="hidden" id="email" oscarDB="email"/>
+                <input type="hidden" id="age" oscarDB="age"/>
+                <input type="hidden" id="sex" oscarDB="sex"/>
+                <input type="hidden" id="sin" oscarDB="sin"/>
+                <input type="hidden" id="hin" oscarDB="hin"/>
+                <!-- Current User and Server values -->
+                <input type="hidden" id="current_user_id" oscarDB="current_user_id"/>
+                <input type="hidden" id="current_user" oscarDB="current_user"/>
+                <input type="hidden" id="time" oscarDB="time"/>
+                <input type="hidden" id="today" oscarDB="today"/>
+                <!-- More Patient Values -->
+                <input type="hidden" id="partner_nameL" oscarDB="partner_nameL"/>
+                <input type="hidden" id="partner_nameF" oscarDB="partner_nameF"/>
+                <input type="hidden" id="partner_phone" oscarDB="partner_phone"/>                
+                <input type="hidden" id="date_joined" oscarDB="date_joined"/>
+                <input type="hidden" id="current_rx" oscarDB="current_rx"/>
+                <input type="hidden" id="riskfactors" oscarDB="riskfactors"/>
+                <input type="hidden" id="todays_notes" oscarDB="todays_notes"/>
+                <input type="hidden" id="document_list" oscarDB="document_list"/>
+                <input type="hidden" id="doctor" oscarDB="doctor"/>
+                <input type="hidden" id="doctor_title" oscarDB="doctor_title"/>
+                <input type="hidden" id="doctor_provider_no" oscarDB="doctor_provider_no"/>
+                <input type="hidden" id="doctor_ohip_no" oscarDB="doctor_ohip_no"/>
+                <input type="hidden" id="appt_provider_name" oscarDB="appt_provider_name"/>
+                <input type="hidden" id="appt_provider_id" oscarDB="appt_provider_id"/>
+                <input type="hidden" id="appt_provider_ohip_no" oscarDB="appt_provider_ohip_no"/>
+                <input type="hidden" id="appt_no" oscarDB="appt_no"/>
+                <input type="hidden" id="appt_date" oscarDB="appt_date"/>
+                <input type="hidden" id="appt_time" oscarDB="appt_time"/>
+                <input type="hidden" id="next_appt_provider_id" oscarDB="next_appt_provider_id"/>
+                <input type="hidden" id="next_appt_provider_name" oscarDB="next_appt_provider_name"/>
+                <input type="hidden" id="next_appt_date" oscarDB="next_appt_date"/>
+                <input type="hidden" id="reminders" oscarDB="reminders"/>
+                <!-- Measurements -->
+                <input type="hidden" id="HT" oscarDB="m$HT#value"/>
+                <input type="hidden" id="HTdate" oscarDB="m$HT#dateObserved"/>
+                <input type="hidden" id="WT" oscarDB="m$WT#value"/>
+                <input type="hidden" id="WTdate" oscarDB="m$WT#dateObserved"/>
+                <input type="hidden" id="BP" oscarDB="m$BP#value"/>
+                <input type="hidden" id="BPdate" oscarDB="m$BP#dateObserved"/>
+                <input type="hidden" id="A1C" oscarDB="m$A1C#value"/>
+                <input type="hidden" id="A1Cdate" oscarDB="m$A1C#dateObserved"/>
+            </div>        
+        </form>
+        <hr>
+        <div class="w3-row-padding" id="eformsSection">
+            <div class="w3-twothird w3-small" style="width:51%" id="itemseFormsBtn">
+                <button class="w3-button w3-white" id="btneForms">eForms</button>
+                <div id="itemseForms"></div>
+            </div>
+            <div class="w3-third w3-small" id="itemsConsultsBtn">
+                <button class="w3-button w3-white" id="btnConsults">Consults</button>
+                <div id="itemsConsults"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="w3-row-padding" id="ticklersSection">
+            <button class="w3-button w3-white" id="btnTicklers">Ticklers</button>
+            <div class="w3-col w3-small" id="itemsTicklers">
+            </div>
+        </div>
+        <hr>
+        <div class="w3-row-padding" id="preventionsSection">
+            <button class="w3-button w3-white" id="btnPreventions">Preventions</button>
+            <div class="w3-col w3-small" id="itemsPreventions">
+            </div>
+        </div>
+        <hr>
+        <div class="w3-row-padding" id="apptsSection">
+            <button class="w3-button w3-white" id="btnAppointments">Appointments</button>
+            <div class="w3-small" id="itemsAppointments">
+            </div>
+        </div>
+        <hr>
+        <div class="w3-row-padding" id="documentsSection">
+            <button class="w3-button w3-white" id="btnDocuments">Documents</button>
+            <div class="w3-small" id="itemsDocuments">
+            </div>
+        </div>
+        <hr>
+        <div class="w3-row-padding" id="masterSection">
+            <button class="w3-button w3-white" id="btnMaster">Master</button>
+            <div class="w3-small" id="displayPatient">
+            </div>
+        </div>
+        <hr>
+        <script src="${oscar_image_path}OSCAREMRJavaScript.js"></script>
+    </body>
+</html>
