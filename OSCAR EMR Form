@@ -9,28 +9,22 @@
         <meta name="author" content="Scott Gingras">
         <meta name="description" content="OSCAR EMR January 2022">
         <script>
-		    function popupPage(varpage, windowname) {
-				const page = "" + varpage,
-				windowprops = "height=800,width=950,location=no,scrollbars=yes,menubars=no,status=yes,toolbars=no,resizable=yes,top=10,left=200",
-				popup = window.open(page, windowname, windowprops);
-				if (popup != null) {
-					if (popup.opener == null) {
-						popup.opener = self;
-					}
-				popup.focus();
-				}
-			}
-			function popupOscarRx(vheight,vwidth,varpage) { 
-				const page = varpage,
-				windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
-				popup=window.open(varpage, "oscarConsultationRequest", windowprops);
-			}
-                    function popupFocusPage(vheight,vwidth,varpage,strTitle) { 
-				const page = varpage,
-				windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
-				popup=window.open(varpage, strTitle, windowprops);
-			}
-		</script>
+	function popupPage(varpage, windowname) {
+	    const page = "" + varpage,
+	        windowprops = "height=800,width=950,location=no,scrollbars=yes,menubars=no,status=yes,toolbars=no,resizable=yes,top=10,left=200",
+	        popup = window.open(page, windowname, windowprops);
+	}
+	function popupOscarRx(vheight,vwidth,varpage) { 
+	    const page = varpage,
+	        windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
+		popup=window.open(varpage, "oscarConsultationRequest", windowprops);
+	}
+	function popupFocusPage(vheight,vwidth,varpage,strTitle) { 
+	    const page = varpage,
+		windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
+		popup=window.open(varpage, strTitle, windowprops);
+	}
+	</script>
         <style type="text/css">
         TD.lilac {font-weight: normal; color: #000000; background-color: #EEEEFF  ;  padding-top: 4px;padding-bottom: 4px;}
         TD.lilacRed {font-weight: normal; color: red; background-color: #EEEEFF  ;  padding-top: 4px;padding-bottom: 4px;}
