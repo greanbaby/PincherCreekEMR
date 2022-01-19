@@ -1,9 +1,9 @@
 "use strict";
 /*  ----------------------------------------------------------------------------------------------------------------------------------
-    PincherCreekEMRJavaScript.js
+    OSCAREMRJavaScript.js
     Scott Gingras <sgingras@pinchermedical.ca>
     January 11, 2022
-    This script is the companion to the Pincher Creek EMR Form
+    This script is the companion to the OSCAR EMR Form
     ---
     --- VARIABLE TO CHANGE TO MATCH YOUR ENVIRONMENT:  strHostLocation
     ---
