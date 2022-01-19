@@ -24,6 +24,21 @@
 		windowprops = "height="+vheight+",width="+vwidth+",location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes,screenX=0,screenY=0,top=0,left=0",
 		popup=window.open(varpage, strTitle, windowprops);
 	}
+	
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            let topperButton = document.getElementById("topperButton");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                topperButton.style.display = "block";
+            } else {
+                topperButton.style.display = "none";
+            }
+        }
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
 	</script>
         <style type="text/css">
         TD.lilac {font-weight: normal; color: #000000; background-color: #EEEEFF  ;  padding-top: 4px;padding-bottom: 4px;}
@@ -140,6 +155,24 @@
             width:8px;
             height:10px;
             border:1px solid #999999;
+        }
+	#topperButton {
+            display: none; 
+            position: fixed; 
+            bottom: 20px; 
+            right: 30px; 
+            z-index: 99; 
+            border: none;
+            outline: none;
+            background-color: red; 
+            color: white; 
+            cursor: pointer; 
+            padding: 15px;
+            border-radius: 10px; 
+            font-size: 18px; 
+        }
+        #topperButton:hover {
+            background-color: #555;
         }
     </style>
     </head>
@@ -298,6 +331,7 @@
             </div>
         </div>
         <hr>
+	<button onclick="topFunction()" id="topperButton" title="Go to top">Top</button>
         <script src="${oscar_image_path}OSCAREMRJavaScript.js"></script>
     </body>
 </html>
