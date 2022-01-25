@@ -181,6 +181,7 @@
             <div class="w3-half w3-container"><img src="${oscar_image_path}oscar.jpg" width=300 height=100></div>
             <div class="w3-half w3-container">
                 <h4>OSCAR EMR</h4>
+		<button class="w3-button w3-blue" id="btnCVRisk">CV Risk</button>
                 <button class="w3-button w3-blue" id="btnOpenLabs">Labs</button>
                 <button class="w3-button w3-blue" id="btnAllergies">Allergies</button>
                 <button class="w3-button w3-blue" id="btnRx">Rx</button>
