@@ -40,6 +40,12 @@ if (ptID.length > 0) {
     showAppointmentHistory();
     resizeWindowAndMove();
     addAdditionalButtonEventListeners();
+    if (parseInt(ptAge) < 12) {
+        document.getElementById('smokingDisplay').style.display = 'none';
+    }
+    if (parseInt(ptAge) < 40) {
+        document.getElementById('btnCVRisk').style.display = 'none';
+    }
 }
 // ----------------------------------------------------------------------------------------------------------------------------------
 // END OF SCRIPT EXECUTION
@@ -116,6 +122,7 @@ function addAdditionalButtonEventListeners() {
     const btnOpenLabs = document.getElementById('btnOpenLabs'),
         btnAllergies = document.getElementById('btnAllergies'),
         btnRx = document.getElementById('btnRx'),
+	btnCVRisk = document.getElementById('btnCVRisk'),
         btnIntake = document.getElementById('btnIntake'),
         btneForms = document.getElementById('btneForms'),
         btnConsults = document.getElementById('btnConsults'),
@@ -136,6 +143,10 @@ function addAdditionalButtonEventListeners() {
         openRx = () => {
             const url = strHostName + strHostLocation + 'oscarRx/choosePatient.do?providerNo=&demographicNo=' + ptID;
             window.open(url, 'Rx', windowprops);
+        },
+	openCVRisk = () => {
+            const url = strHostName + strHostLocation + 'oscarEncounter/calculators/riskcalc/index.html';
+            window.open(url, 'CV Risk', windowprops);  
         },
         openIntake = () => {
             const url = strHostName + strHostLocation + 'provider/formIntake.jsp?demographic_no=' + ptID;
@@ -186,6 +197,9 @@ function addAdditionalButtonEventListeners() {
     });
     btnIntake.addEventListener('click', event => {
         openIntake();
+    });
+    btnCVRisk.addEventListener('click', event => {
+        openCVRisk();
     });
     btneForms.addEventListener('click', event => {
         openeForms();
