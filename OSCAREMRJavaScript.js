@@ -19,6 +19,7 @@
 const strHostName = window.location.origin + '/',
     strHostLocation = 'oscar/',
     ptID = document.getElementById('demographic_no').value,
+    ptAge = document.getElementById('age').value,
     isEmpty = str => !str.trim().length,
     winProps = ',location=no,scrollbars=yes,menubars=no,status=yes,toolbars=no,resizable=yes,top=50,left=200',
     winWidthReduction = 250,  // INCREASING this makes the popup windows NARROWER
@@ -30,6 +31,7 @@ if (ptID.length > 0) {
     loadAllPatientData();  // if there is patient data that has been loaded into the page using the hidden oscarDB input fields then show it
     hideRowsMissingEChartData();  // hide rows and labels for fields with no data in them
     hideInputs();
+    showSmokingStatus();
     showTicklers();
     showPreventions();
     showConsults();
@@ -230,6 +232,45 @@ function insertEachDataItemIntoDivRow(divRow) {
                 )
             )
         divRow.appendChild(divNew);
+        }
+    }
+}
+function showSmokingStatus() {
+    const named = document.getElementById('hiddenFields'),
+        dataFields = named.getElementsByTagName('input');
+    let strSmoking = '',
+        strSmokingDate = '';
+    for (let x in dataFields) {
+        if (dataFields[x].id === 'SMK') {
+            strSmoking = dataFields[x].value;
+        }
+        if (dataFields[x].id === 'SMKdate') {
+            strSmokingDate = dataFields[x].value;
+        }
+    }
+    displaySmokingText(strSmoking, strSmokingDate);
+}
+function displaySmokingText(strSmoking, strSmokingDate) {
+    const divSmokingDisplay = document.getElementById('smokingDisplay');
+    if (strSmoking === '') {
+        if (document.getElementById('ongoingconcerns').value.indexOf('TOBACCO USE DISORDER') === -1) {
+            if (document.getElementById('ongoingconcerns').value.indexOf('Smoker - Tobacco') === -1) {
+                if (document.getElementById('dxregistry').value.indexOf('TOBACCO USE DISORDER') === -1) {
+                    divSmokingDisplay.appendChild(document.createTextNode('**** Smoking Status: UNKNOWN cannot read SMK MEASUREMENT VALUE from the health tracker ****'));
+                } else {
+                    divSmokingDisplay.appendChild(document.createTextNode('**** CURRENTLY A KNOWN SMOKER FROM DX REGISTRY;  HOWEVER the SMK MEASUREMENT VALUE is missing so the DATE IS UNKNOWN ****'));
+                }
+            } else {
+                divSmokingDisplay.appendChild(document.createTextNode('**** CURRENTLY A KNOWN SMOKER from ongoing concerns;  HOWEVER the SMK MEASUREMENT VALUE is missing so the DATE IS UNKNOWN ****'));
+            }
+        } else {
+            divSmokingDisplay.appendChild(document.createTextNode('**** CURRENTLY A KNOWN SMOKER from ongoing concerns;  HOWEVER the SMK MEASUREMENT VALUE is missing so the DATE IS UNKNOWN ****'));
+        }
+    } else {
+        if (strSmoking === 'Current' || strSmoking === 'Yes') {
+            divSmokingDisplay.appendChild(document.createTextNode('**** CURRENTLY A KNOWN SMOKER as of ' + strSmokingDate + ' ****'));
+        } else {
+            divSmokingDisplay.appendChild(document.createTextNode('Known Smoking Status: ' + strSmoking.toUpperCase() + ' as of ' + strSmokingDate));
         }
     }
 }
