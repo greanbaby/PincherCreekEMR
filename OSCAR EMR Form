@@ -205,7 +205,9 @@
                 <label for="demoDisplayMRP">MRP:</label>
                 <input type="text" readonly id="demoDisplayMRP" oscarDB="doctor"/>
             </div>
-            <!-- E Chart Items -->
+            <div class="w3-panel" id="smokingDisplay">
+            </div>
+	    <!-- E Chart Items -->
              <div class="w3-panel w3-small" id="demodivEChartNote">
                 <div class=w3-row-padding id="dataEChartNote">
                 <label for="demoEChartNote">Latest eChart Note:</label>
@@ -287,6 +289,11 @@
                 <input type="hidden" id="BPdate" oscarDB="m$BP#dateObserved"/>
                 <input type="hidden" id="A1C" oscarDB="m$A1C#value"/>
                 <input type="hidden" id="A1Cdate" oscarDB="m$A1C#dateObserved"/>
+		<input type="hidden" id="SMK" oscarDB="m$SMK#value"/>
+                <input type="hidden" id="SMKdate" oscarDB="m$SMK#dateObserved"/>
+                <input type="hidden" id="reminders" oscarDB="reminders"/>
+                <input type="hidden" id="ongoingconcerns" oscarDB="ongoingconcerns"/>
+                <input type="hidden" id="dxregistry" oscarDB="dxregistry"/>
             </div>        
         </form>
         <hr>
