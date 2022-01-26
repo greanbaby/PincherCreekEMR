@@ -3,7 +3,7 @@ Pincher Creek Alberta Canada Electronic Medical Record
 
 These 4 files need to be imported to OSCAR to use the eForm that links to all parts of the OSCAR EMR:
 1) OSCAR EMR FORM
-2) OSCAR EMR FORM JavaScript
+2) OSCAR EMR JavaScript
 3) w3.css stylesheet
 4) oscar.jpg logo for top left
 
