@@ -281,7 +281,9 @@
                 <input type="hidden" id="next_appt_provider_name" oscarDB="next_appt_provider_name"/>
                 <input type="hidden" id="next_appt_date" oscarDB="next_appt_date"/>
                 <input type="hidden" id="reminders" oscarDB="reminders"/>
-                <!-- Measurements -->
+                <input type="hidden" id="ongoingconcerns" oscarDB="ongoingconcerns"/>
+                <input type="hidden" id="dxregistry" oscarDB="dxregistry"/>
+		<!-- Measurements -->
                 <input type="hidden" id="HT" oscarDB="m$HT#value"/>
                 <input type="hidden" id="HTdate" oscarDB="m$HT#dateObserved"/>
                 <input type="hidden" id="WT" oscarDB="m$WT#value"/>
@@ -292,9 +294,6 @@
                 <input type="hidden" id="A1Cdate" oscarDB="m$A1C#dateObserved"/>
 		<input type="hidden" id="SMK" oscarDB="m$SMK#value"/>
                 <input type="hidden" id="SMKdate" oscarDB="m$SMK#dateObserved"/>
-                <input type="hidden" id="reminders" oscarDB="reminders"/>
-                <input type="hidden" id="ongoingconcerns" oscarDB="ongoingconcerns"/>
-                <input type="hidden" id="dxregistry" oscarDB="dxregistry"/>
             </div>        
         </form>
         <hr>
