@@ -4,7 +4,8 @@
     Scott Gingras <sgingras@pinchermedical.ca>
     January 11, 2022
     This script is the companion to the OSCAR EMR Form
-    It will control the display of fields and sections of the form so that only the parts containing data are shown
+    It will asynchronously go and fetch data from all parts of the EMR and display in the form after it loads
+    It will also control the display of fields and sections of the form so that only the parts containing data are shown
     Also patients under age 12 have the smoking display hidden, and patients under age 40 have the CV Risk button hidden
     ---
     --- VARIABLE TO CHANGE TO MATCH YOUR ENVIRONMENT:  strHostLocation
