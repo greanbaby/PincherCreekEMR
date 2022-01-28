@@ -10,7 +10,9 @@
     ---
     --- VARIABLE TO CHANGE TO MATCH YOUR ENVIRONMENT:  strHostLocation
     ---
-    --- UPDATES: Jan. 17/22: hide empty elements
+    --- UPDATES: Jan. 23/22: look in 1) Measurements, 2) Ongoing Concerns, or 3) DxRegistry for SMOKING STATUS and DATE ASKED
+    ---
+    --- Jan. 17/22: hide empty elements
     --- 
     --- Jan. 15/22: using DOMParser "goggles" to choose only useful columns of data to show
     ---
