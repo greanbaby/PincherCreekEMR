@@ -298,11 +298,11 @@
         </form>
         <hr>
         <div class="w3-row-padding" id="eformsSection">
-            <div class="w3-twothird w3-small" style="width:51%" id="itemseFormsBtn">
+            <div class="w3-half w3-small" id="itemseFormsBtn">
                 <button class="w3-button w3-white" id="btneForms">eForms</button>
                 <div id="itemseForms"></div>
             </div>
-            <div class="w3-third w3-small" id="itemsConsultsBtn">
+            <div class="w3-half w3-small" id="itemsConsultsBtn">
                 <button class="w3-button w3-white" id="btnConsults">Consults</button>
                 <div id="itemsConsults"></div>
             </div>
