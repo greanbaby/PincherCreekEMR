@@ -232,7 +232,6 @@
                 <label for="demoSocialFamilyHistory">Social Family History:</label>
                 <input type="textarea" size="1" readonly id="demoSocialFamilyHistory" oscarDB="social_family_history"/><hr></div>
                 <div class=w3-row-padding id="dataReminders">
-
             </div>
             <div id="hiddenFields">
                 <!-- This is how the information is loaded for the patient we are looking at, OSCAR has functionality to lookup from the database
