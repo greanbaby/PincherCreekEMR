@@ -6,7 +6,7 @@
 
 
 This OSCAR EMR FORM pulls patient data from the OSCAR EMR.
-This form is meant to be a template to build upon.
+This form is meant to be a template to build upon with your own ideas.
 
 
 *HOW DO I INSTALL THE OSCAR EMR FORM?*
