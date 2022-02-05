@@ -1,6 +1,4 @@
-# PincherCreekEMR
-Pincher Creek Alberta Canada Electronic Medical Record
-
+# OSCAR EMR eForm
 
 *QUESTION: Why should I care about this new eForm?*
 
