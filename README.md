@@ -2,7 +2,7 @@
 Pincher Creek Alberta Canada Electronic Medical Record
 
 
-*People keep asking me: why should I care about this new eForm?
+*QUESTION: Why should I care about this new eForm?
 ANSWER: It is the most efficient and modern coding method to get data from OSCAR into your eForm*
 
 
