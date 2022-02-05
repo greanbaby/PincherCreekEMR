@@ -14,8 +14,8 @@ This form is meant to be a template to build upon with your own ideas.
 These 4 files need to be imported to OSCAR to use the eForm that links to all parts of the OSCAR EMR:
 1) OSCAR EMR FORM
 2) OSCAR EMR JavaScript
-3) w3.css stylesheet
-4) oscar.jpg logo for top left
+3) oscar.jpg logo for top left
+4) w3.css stylesheet
 
 based on OSCAR
 https://worldoscar.org/
