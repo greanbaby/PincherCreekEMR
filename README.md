@@ -4,7 +4,7 @@ Pincher Creek Alberta Canada Electronic Medical Record
 
 *QUESTION: Why should I care about this new eForm?*
 
-*ANSWER: It is the most efficient and modern coding method to get data from OSCAR into your eForm*
+*ANSWER: It is a more efficient and modern coding method (as of 2020) to get data from OSCAR into your eForm*
 
 
 This OSCAR EMR FORM pulls patient data from the OSCAR EMR.
