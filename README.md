@@ -2,7 +2,11 @@
 
 *QUESTION: Why should I care about this new eForm?*
 
-*ANSWER: It is a more efficient and modern coding method to get data from OSCAR into your eForm, compared to code currently being shared to do the same thing as of the year 2020-2021*
+*ANSWER: All of the coding was built on purpose to be easy to copy/paste*
+
+*It is a more modern coding method to get data from OSCAR into your eForm, compared to code currently being shared to do the same thing as of the year 2020-2021*
+
+*It does not require you to learn jQuery or Bootstrap to modify this form easily for your needs*
 
 
 This OSCAR EMR FORM pulls patient data from the OSCAR EMR.
