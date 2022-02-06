@@ -9,8 +9,9 @@
 *It does not require you to learn jQuery or Bootstrap to modify this form easily for your needs*
 
 
-This OSCAR EMR FORM pulls patient data from the OSCAR EMR.
-This form is meant to be a template to build upon with your own ideas.
+This OSCAR EMR FORM pulls all of the patient data from the OSCAR EMR.
+
+This is meant to be a template to build upon with your own ideas -- copy/paste whatever you need to build your own eForms.
 
 
 *HOW DO I INSTALL THE OSCAR EMR FORM?*
