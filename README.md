@@ -37,6 +37,6 @@ W3.CSS provides equality for all devices: Desktop. Laptop. Tablet. Mobile.
 W3.CSS is standard CSS only (No jQuery or JavaScript library).
 
 
-please visit Dr. Stan Hurwitz's GitHub to see other examples of GreaseMonkey
+please visit DrStanMD GitHub to see other examples of GreaseMonkey
 that both inspired and heavily influenced my work:
 https://github.com/DrStanMD/Oscar-GM4-scripts
