@@ -23,14 +23,19 @@ https://worldoscar.org/
 and JavaScript
 https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
-with TamperMonkey inside FireFox browser
-https://www.tampermonkey.net/
+and W3.CSS styling
+https://www.w3schools.com/w3css/
 
-and DBeaver Universal Database Tool
-https://dbeaver.io/
+*Why W3.CSS?*
+*Ease of use*
+W3.CSS is a modern, responsive, mobile first CSS framework.
 
-running on KDE Neon
-https://neon.kde.org/
+W3.CSS provides equality for all browsers: Chrome. Firefox. Edge. IE. Safari. Opera.
+
+W3.CSS provides equality for all devices: Desktop. Laptop. Tablet. Mobile.
+
+W3.CSS is standard CSS only (No jQuery or JavaScript library).
+
 
 please visit Dr. Stan Hurwitz's GitHub to see other examples of GreaseMonkey
 that both inspired and heavily influenced my work:
