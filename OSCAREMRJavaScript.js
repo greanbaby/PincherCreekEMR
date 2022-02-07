@@ -8,12 +8,16 @@
     It will also control the display of fields and sections of the form so that only the parts containing data are shown
     Also patients under age 12 have the smoking display hidden, and patients under age 40 have the CV Risk button hidden
     ---
-    --- VARIABLE TO CHANGE TO MATCH YOUR ENVIRONMENT:  strHostLocation
+    --- VARIABLES TO CHANGE TO MATCH YOUR ENVIRONMENT:  strHostLocation
+    ---                    TICKLER CHANGES TO MATCH YOUR ENVIRONMENT:
+    ---                    starting at Line 171 and anywhere there is a reference to TICKLERS
+    ---                     the location is tickler/ticklerDemoMain.jsp   in OSCAR
+    ---                        the Location is tickler/ticklerMain.jsp    in Juno
     ---
     --- UPDATES: Jan. 23/22: look in 1) Measurements, 2) Ongoing Concerns, or 3) DxRegistry for SMOKING STATUS and DATE ASKED
     ---
     --- Jan. 17/22: hide empty elements
-    --- 
+    ---
     --- Jan. 15/22: using DOMParser "goggles" to choose only useful columns of data to show
     ---
     --- Jan. 13/22: sendTickler function not currently being used but kept here for future use
@@ -151,7 +155,7 @@ function addAdditionalButtonEventListeners() {
         },
 	openCVRisk = () => {
             const url = strHostName + strHostLocation + 'oscarEncounter/calculators/riskcalc/index.html';
-            window.open(url, 'CV Risk', windowprops);  
+            window.open(url, 'CV Risk', windowprops);
         },
         openIntake = () => {
             const url = strHostName + strHostLocation + 'provider/formIntake.jsp?demographic_no=' + ptID;
@@ -338,8 +342,8 @@ function fnShrinkConsults(largeText) {
 }
 function showeForms() {
     (async () => {
-        const response = await fetch(strHostName + strHostLocation + 
-                                     'eform/efmpatientformlist.jsp?demographic_no=' + 
+        const response = await fetch(strHostName + strHostLocation +
+                                     'eform/efmpatientformlist.jsp?demographic_no=' +
                                      ptID +
                                      '&apptProvider=&appointment=&parentAjaxId=eforms'),
               eformLargeHTMLBLOB = await response.text(),
@@ -361,7 +365,7 @@ function fnShrinkeForm(largeText) {
 }
 function showTicklers() {
     (async () => {
-        const response = await fetch(strHostName + strHostLocation + 
+        const response = await fetch(strHostName + strHostLocation +
                                      'tickler/ticklerDemoMain.jsp?' +
                                      'demoview=' + ptID +
                                      '&parentAjaxId=tickler'),
@@ -384,8 +388,8 @@ function fnShrinkTickler(largeText) {
 }
 function showDocuments() {
     (async () => {
-        const response = await fetch(strHostName + strHostLocation + 
-                                     'dms/documentReport.jsp?function=demographic&doctype=lab&functionid=' + 
+        const response = await fetch(strHostName + strHostLocation +
+                                     'dms/documentReport.jsp?function=demographic&doctype=lab&functionid=' +
                                      ptID +
                                      '&curUser='),
               documentsBody = await response.text(),
@@ -404,10 +408,10 @@ function fnShowOnlyUsefulDocumentColumns(htmlTable) {
     for (let x = 1; x<htmlTable.rows.length-1; x++) {
         const row = htmlTable.rows[x];
         if (row.cells[0].innerHTML.indexOf('No documents to display') === -1) {
-            displayText += '<tr><td>' + 
-			(row.cells[1].innerHTML).replace('ManageDocument.do','../dms/ManageDocument.do') + 
-			'</td><td>' + 
-			row.cells[6].innerHTML + 
+            displayText += '<tr><td>' +
+			(row.cells[1].innerHTML).replace('ManageDocument.do','../dms/ManageDocument.do') +
+			'</td><td>' +
+			row.cells[6].innerHTML +
 			'</td></tr>';
         } else {
             displayText = '<table><tr><td>No documents to display</td></tr></html>';
@@ -418,8 +422,8 @@ function fnShowOnlyUsefulDocumentColumns(htmlTable) {
 }
 function showAppointmentHistory() {
     (async () => {
-        const response = await fetch(strHostName + strHostLocation + 
-                                     'demographic/demographiccontrol.jsp?demographic_no=' + 
+        const response = await fetch(strHostName + strHostLocation +
+                                     'demographic/demographiccontrol.jsp?demographic_no=' +
                                      ptID +
                                      '&orderby=appttime&displaymode=appt_history&dboperation=appt_history&limit1=0&limit2=25'),
               apptBody = await response.text(),
