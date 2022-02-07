@@ -9,6 +9,7 @@
     Also patients under age 12 have the smoking display hidden, and patients under age 40 have the CV Risk button hidden
     ---
     --- VARIABLES TO CHANGE TO MATCH YOUR ENVIRONMENT:  strHostLocation
+    ---
     ---                    TICKLER CHANGES TO MATCH YOUR ENVIRONMENT:
     ---                    starting at Line 171 and anywhere there is a reference to TICKLERS
     ---                     the location is tickler/ticklerDemoMain.jsp   in OSCAR
