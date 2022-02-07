@@ -17,6 +17,9 @@ This is meant to be a template to build upon with your own ideas -- copy/paste w
 *HOW DO I INSTALL THE OSCAR EMR FORM?*
 
 These 4 files need to be imported to OSCAR to use the eForm that links to all parts of the OSCAR EMR:
+
+*Please look at the top of the OSCAR EMR JavaScript for instructions about changes that might be needed for your server environment*
+
 1) OSCAR EMR FORM
 2) OSCAR EMR JavaScript
 3) oscar.jpg logo for top left
