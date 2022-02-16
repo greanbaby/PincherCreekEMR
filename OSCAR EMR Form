@@ -174,6 +174,24 @@
         #topperButton:hover {
             background-color: #555;
         }
+    #linkSidebar {
+          display: block;
+          position: fixed;
+          top: 32px;
+          right: 30px;
+          z-index: 97;
+          border: none;
+          outline: none;
+          background-color: grey;
+          color: white;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 10px;
+          font-size: 18px;
+    }
+    #linkSidebar:hover {
+          background-color: #555;
+    }
     </style>
     </head>
     <body>
@@ -192,6 +210,46 @@
         <div class="w3-panel w3-yellow" id="demographicsFromChartWarning">			
 			<p>This form is meant to be opened from within a patient chart in order to load the necessary patient data field values</p>
         </div>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-bar-block w3-border-right" style="display: none;
+          position: fixed;
+          top: 32px;
+          right: 30px;
+          z-index: 98;
+          border: none;
+          outline: none;
+          background-color: grey;
+          color: white;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 10px;
+          font-size: 18px;" id="mySidebar">
+        <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+        <a href="https://www.bugsanddrugs.org/" class="w3-bar-item w3-button" target="_blank">Bugs & Drugs</a>
+
+        <a href="https://www.immunizealberta.ca/" class="w3-bar-item w3-button" target="_blank">Immunization</a>
+
+        <a href="https://www.mdcalc.com/" class="w3-bar-item w3-button" target="_blank">MD Calc</a>
+
+        <a href="https://aaa.albertanetcare.ca/vpn/index-anc.html" class="w3-bar-item w3-button" target="_blank">Netcare</a>
+
+        <a href="https://open.alberta.ca/dataset?topic=Health+and+Wellness" class="w3-bar-item w3-button" target="_blank">Open Health</a>
+
+        <a href="https://gpscbc.ca/what-we-do/practice-supports/pathways" class="w3-bar-item w3-button" target="_blank">Pathways</a>
+
+        <a href="https://www.alberta.ca/supports-for-seniors.aspx" class="w3-bar-item w3-button" target="_blank">Social Services</a>
+
+        <a href="https://actt.albertadoctors.org/CPGs" class="w3-bar-item w3-button" target="_blank">TOP CPGs</a>
+
+        <a href="https://www.uptodate.com/contents/search" class="w3-bar-item w3-button" target="_blank">UpToDate</a>
+
+
+    </div>
+
+    <!-- Page Content -->
+    <button class="w3-button w3-blue w3-xlarge" onclick="w3_open()" id="linkSidebar">*</button>
+
         <form class="w3-container" id="hiddenFieldsForm">
             <!-- Demographics Name Display -->
             <div class="w3-panel w3-blue" id="demographicsNameDisplay">
@@ -339,5 +397,14 @@
         <hr>
 	<button onclick="topFunction()" id="topperButton" title="Go to top">Top</button>
         <script src="${oscar_image_path}OSCAREMRJavaScript.js"></script>
+        <script>
+          function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+          }
+
+          function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+          }
+        </script>
     </body>
 </html>
